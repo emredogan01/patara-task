@@ -26,7 +26,7 @@ export default function Drawer({ isOpen, onOpenChange }: DrawerProps) {
         />
       </DrawerTrigger>
       <DrawerContent
-        className="w-[300px] bg-gray-500"
+        className="w-[300px] bg-[#181818] text-white"
         data-vaul-drawer-direction="left"
       >
         <DrawerTitle>Menu</DrawerTitle>

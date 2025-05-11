@@ -9,7 +9,7 @@ export default function TopBar() {
   const [isDrawerOpen, setDrawerOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 left-0 w-full z-50">
+    <header className="fixed top-0 w-full z-50 mt-[20px] ">
       <div className="h-[80px] max-w-[1440px] mx-auto flex items-center justify-between px-4 text-white">
         {/* Left */}
         <div className="flex items-center justify-center w-[190px] h-[40px]">
@@ -26,7 +26,7 @@ export default function TopBar() {
         </div>
 
         {/* Center */}
-        <div className="relative w-[464px] h-[40px]">
+        <div className="relative w-[464px] h-[40px] ml-[85px]">
           {/* Search Icon */}
           <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
             <Image
