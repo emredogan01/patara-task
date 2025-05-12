@@ -1,29 +1,44 @@
 "use client";
+
 import RotatingAvatar from "../RotatingAvatar";
 import { Button } from "../ui/button";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
 export default function DashboardContent() {
+  const containerVariants = {
+    hidden: { opacity: 0, y: -50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        when: "beforeChildren",
+        staggerChildren: 0.3,
+        duration: 0.1,
+      },
+    },
+  };
+
+  const childVariants = {
+    hidden: { opacity: 0, x: -50 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.5, ease: "easeOut" },
+    },
+  };
+
   return (
-    <motion.div
-      initial="hidden"
-      animate="visible"
-      variants={{
-        hidden: { opacity: 0 },
-        visible: {
-          opacity: 1,
-          transition: {
-            when: "beforeChildren",
-            staggerChildren: 0.3,
-            duration: 0.7,
-          },
-        },
-      }}
-    >
-      <div className="w-[1045px] h-[400px] bg-[#181818] px-[40px] py-[20px] rounded-lg grid grid-cols-6 gap-4">
+    <motion.div initial="hidden" animate="visible" variants={containerVariants}>
+      <motion.div
+        className="w-[1045px] h-[400px] bg-[#181818] px-[40px] py-[20px] rounded-lg grid grid-cols-6 gap-4"
+        variants={childVariants}
+      >
         {/* left side */}
-        <div className="col-span-4 rounded-lg flex flex-col items-start justify-center gap-14">
+        <motion.div
+          className="col-span-4 rounded-lg flex flex-col items-start justify-center gap-14"
+          variants={childVariants}
+        >
           <div className="flex flex-col items-start gap-2">
             <h2 className="text-white text-2xl font-bold">Refer and Earn</h2>
             <p className="text-[#808080] text-sm">
@@ -53,12 +68,15 @@ export default function DashboardContent() {
               Share
             </Button>
           </div>
-        </div>
+        </motion.div>
         {/* right side */}
-        <div className="col-span-2 rounded-lg flex items-center justify-center">
+        <motion.div
+          className="col-span-2 rounded-lg flex items-center justify-center"
+          variants={childVariants}
+        >
           <RotatingAvatar />
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </motion.div>
   );
 }
