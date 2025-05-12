@@ -1,15 +1,17 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation"; // Next.js yönlendirme
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import Image from "next/image";
 import Drawer from "../Drawer";
 
-export default function TopBar() {
+export default function TopBar({ user }: { user?: { name: string } }) {
   const [isDrawerOpen, setDrawerOpen] = useState(false);
+  const router = useRouter();
 
   return (
-    <header className="fixed top-0 w-full z-50 mt-[20px] ">
+    <header className="fixed top-0 w-full z-50 mt-[20px]">
       <div className="h-[80px] max-w-[1440px] mx-auto flex items-center justify-between px-4 text-white">
         {/* Left */}
         <div className="flex items-center justify-center w-[190px] h-[40px]">
@@ -35,12 +37,6 @@ export default function TopBar() {
               width={20}
               height={20}
             />
-          </div>
-
-          {/* Cmd + K */}
-          <div className="absolute right-3 top-1/2 transform -translate-y-1/2 flex gap-1 bg-[#181818] p-1 rounded">
-            <Image src="/icons/cmd.png" alt="Cmd Icon" width={12} height={12} />
-            <Image src="/icons/k.png" alt="K Icon" width={12} height={12} />
           </div>
 
           {/* Input */}
@@ -75,9 +71,33 @@ export default function TopBar() {
           </div>
 
           {/* Button */}
-          <Button className="bg-blue-600 hover:bg-blue-700 text-white w-[170px] h-[40px] cursor-pointer text-sm font-semibold leading-5 tracking-normal flex items-center justify-center text-center font-sans">
-            Connect / Sign in
-          </Button>
+          {user ? (
+            <div className="bg-[#242424] text-white w-[170px] h-[40px] cursor-pointer text-sm font-semibold leading-5 tracking-normal flex items-center justify-between text-center font-sans rounded-lg px-2">
+              <div className="flex items-center justify-between">
+                <Image
+                  src="/images/user.png"
+                  alt="User Icon"
+                  width={32}
+                  height={32}
+                  className="rounded mr-2"
+                />
+                <span className="text-sm font-semibold">{user.name}</span>
+              </div>
+              <Image
+                src="/icons/down.png"
+                alt="Arrow Down Icon"
+                width={20}
+                height={20}
+              />
+            </div>
+          ) : (
+            <Button
+              className="bg-blue-600 hover:bg-blue-700 text-white w-[170px] h-[40px] cursor-pointer text-sm font-semibold leading-5 tracking-normal flex items-center justify-center text-center font-sans"
+              onClick={() => router.push("/content")}
+            >
+              Connect / Sign in
+            </Button>
+          )}
         </div>
       </div>
     </header>
